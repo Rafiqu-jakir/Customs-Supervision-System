@@ -1,0 +1,17 @@
+.login1 {
+  margin-bottom: 10px;
+}
+
+.login2 {
+  margin-bottom: 20px;
+}
+.card-footer > a {
+  text-decoration: none;
+}
+.card {
+  padding: 0px;
+}
+.card-header {
+  background-color: #0b5ed7;
+  color: #fff;
+}

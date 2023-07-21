@@ -1,0 +1,35 @@
+Database name: import_export
+Table Name: imported_product(importer_id, im_product_id, product_type, imported_country) //Tonima
+-------------------------------------------------------------------------------------------------------------
+Database name: import_export
+exported_product(exporter_id, ex_product_id, product_type, exported_country)  //Mostafizur Rahman Fuad
+--------------------------------------------------------------------------------------------------------------
+Database name: import_export {insert 15 data}
+im_customs_clearance(name_of_vessel, date_of_arrival, importer_id, trade_license, product_type, im_product_id, importer_country, total_tax_amount) // Tonima
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Database name: import_export {insert 15 data}
+ex_customs_clearance(name_of_vessel, date_of_exported, exporter_id, trade_license , product_type, ex_product_id, exporter_country, total_tax_amount) //Mostafizur Rahman Fuad
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Database name: import_export
+product_in_warehouse(product_type,product_weight,importer_id,exporter_id) // Sanzida
+-----------------------------------------------------------------------------
+
+Table Name and Column Name Must be small latter !!
+
+
+
+
+importer_id = 101 102 103 ------ 110
+
+exporter_id = 201 202 203 -----210
+
+im_product_id = im301 im302 --- im310
+
+ex_product_id = ex401 ex402 ---- ex410
+
+total_tax_amount = 10k
+
+trade_license = AD105
+
+

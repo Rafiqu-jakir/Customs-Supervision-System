@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/admin_page.css" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <title>Admin Page</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Lato", sans-serif;
+        background-image: url(img/admin1.jpg);
+        background-size: cover;
+        background-attachment: fixed;
+        padding: 50px;
+      }
+      ::placeholder{
+        color: rgb(92, 85, 85) !important;
+      }
+      #myDIV{
+        display: none;
+        width: 300px;
+
+      }
+      .admin_details{
+        float: left;
+        width: 45%;
+      }
+      .admin_update_profile{
+        float: right;
+        margin-top: -4px;
+        width: 55%;
+      }
+      .update_button_wraper{
+        color: #fff;
+      }
+      #update_button{
+        border: none !important;
+        padding: 5px 10px;
+        background-color: #04aa6d !important;
+        color: #fff;
+        margin-top: 15px;
+        border-radius: 7px;
+        text-align: center;
+      }
+      .header h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 40px;
+      }
+      .row {
+        margin-top: 0px;
+        margin-left: 80px;
+        color: #fff;
+      }
+      label {
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+      .bg_gls {
+        background-color: rgba(255, 255, 255, 0.144);
+        border: 1px solid rgb(255, 255, 255);
+      }
+      .admin_my_account{
+        margin-left: 70px;
+        margin-top: 20px;
+      }
+      .admin_details h2 span{
+          color: #fff;
+      }
+      .admin_logout button{
+        background: #04AA6D;
+        padding: 3px 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 22px;
+        color:#fff;
+        margin-top: 10px;
+        margin-left: 5px;
+        
+      }
+      .admin_logout form{
+        display: inline-block;
+      }
+      #admin_logout_button{
+        background: red;
+      }
+      #approve_clerence table tr td a {
+        text-decoration: none;
+        padding: 5px 8px;
+        border-radius: 5px;
+        background: #04aa6d;
+        color: #fff;
+      }
+      #delete_exported_product table tr td a {
+        text-decoration: none;
+        padding: 5px 8px;
+        border-radius: 5px;
+        background: red;
+        color: #fff;
+      }
+      .margin_bottom{
+        margin-bottom: 100px;
+      }
+
+      #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        margin-top: 50px;
+        margin-left: 80px;
+        margin-bottom: 100px;
+      }
+      #all_exporter_info{
+        margin-top: -100px;
+      }
+
+      #customers td,
+      #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        color:#000;
+      }
+
+      #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      #customers tr:nth-child(odd) {
+        background-color: #e7e0e0;
+      }
+
+      #customers tr:hover {
+        background-color: #ddd;
+        transition: 0.5s;
+      }
+
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04aa6d;
+        color: white;
+        text-align: center;
+      }
+      .submit_button {
+        margin-top: 10px;
+      }
+      /* Style the tab */
+      .tab {
+        float: left;
+        width: 20%;
+        height: 300px;
+        margin-top: -35px;
+      }
+
+      /* Style the buttons inside the tab */
+      .tab button {
+        display: block;
+        background-color: inherit;
+        color: rgb(255, 255, 255);
+        padding: 5px 10px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.5s;
+        font-size: 20px;
+        border: 1px solid rgb(73, 73, 73);
+        border-radius: 15px 0px 15px 0px;
+        margin-top: 7px;
+      }
+
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        background-color: #ddd;
+        color: #000;
+      }
+
+      /* Create an active/current "tab button" class */
+      .tab button.active {
+        background-color: #ccc;
+        color: #000;
+      }
+
+      /* Style the tab content */
+      .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        /* border: 1px solid #ccc;*/
+        width: 80%;
+        border-left: none;
+        height: auto;
+      }
+      .bg_red{
+        background-color: red;
+        border-radius: 8px;
+        border: none;
+        transition: 0.3s;
+      }
+      .bg_red:hover{
+        background-color: rgb(214, 3, 3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Welcome to Admin Panel !</h1>
+    </div>
+
+    <div class="tab">
+      <button
+        class="tablinks"
+        onclick="openCity(event, 'add_new_importer')"
+        id="defaultOpen"
+      >
+        Add New Importer
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'add_new_exporter')">
+        Add New Exporter
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'delete_importer')">
+        Delete Users
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'all_i_e')">
+        All Users
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'warehousing_Fee')">
+        Warehousing Fee
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'approve_clerence')">
+        Approve Clerence
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'add_ware_house_product')">
+        Add Warehouse Product
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'delete_exported_product')">
+        Delete Exported Product
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'country')">
+        Country’s(I/E)
+      </button>
+      <button class="tablinks" onclick="openCity(event, 'my_account')">
+        My Account
+      </button>
+    </div>
+
+    <!-- -----New importer Section start------------ -->
+    <div id="add_new_importer" class="tabcontent">
+      <div class="container">
+        <div class="row col-md-6 col-md-offset-3">
+          <div class="panel panel-primary">
+            <div class="panel-body">
+              <form action="php/add-importer.php" method="post">
+                <div class="form-group">
+                  <label for="importer_id">Importer ID</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="importer_id"
+                    name="importer_id"
+                    placeholder="Enter Importer ID"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="company_name">Company Name</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="company_name"
+                    name="company_name"
+                    placeholder="Enter Company Name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="trade_license">Trade License</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="trade_license"
+                    placeholder="Exp: AD780"
+                    name="trade_license"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    placeholder="Phone Number"
+                    id="phone"
+                    name="phone"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="email"
+                    placeholder="example@gmail.com"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control bg_gls"
+                    placeholder="Type Importer Password"
+                    id="password"
+                    name="password"
+                    required
+                  />
+                </div>
+
+                <input type="submit" class="btn btn-primary submit_button" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ----ADD importer section Close ---------------------------------------------------------- -->
+
+    <!-- -----ADD Exporter Section Start------------------------------------------------------------ -->
+    <div id="add_new_exporter" class="tabcontent">
+      <div class="container">
+        <div class="row col-md-6 col-md-offset-3">
+          <div class="panel panel-primary">
+            <div class="panel-body">
+              <form action="php/add-exporter.php" method="post">
+                <div class="form-group">
+                  <label for="exporter_id">Exporter ID</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="exporter_id"
+                    name="exporter_id"
+                    placeholder="Enter Exporter ID"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="company_name">Company Name</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="company_name"
+                    placeholder="Enter Company Name"
+                    name="company_name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="trade_license">Trade License</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="trade_license"
+                    name="trade_license"
+                    placeholder="Exp: WE508"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="phone"
+                    name="phone"
+                    placeholder="Phone Number"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    placeholder="example@gmail.com"
+                    id="email"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control bg_gls"
+                    placeholder="Type Exporter password"
+                    id="password"
+                    name="password"
+                    required
+                  />
+                </div>
+
+                <input type="submit" class="btn btn-primary submit_button " />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -----ADD Exporter Scetion Close----------------------- -->
+
+    <!-- -----Importer Exporter Delete Section Start------------- -->
+    <div id="delete_importer" class="tabcontent">
+      <div class="container">
+        <div class="row col-md-6 col-md-offset-3">
+          <div class="panel panel-primary">
+            <div class="panel-body">
+              <form action="php/importer_delete.php" method="post">
+                <div class="form-group">
+                  <label for="delete_importer">Importer ID</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="delete_importer"
+                    name="delete_importer"
+                    placeholder="Enter Valid Importer ID to Delete"
+                    required
+                  />
+                </div>
+                <input
+                  type="submit"
+                  class="btn btn-primary submit_button bg_red"
+                  value="Delete Importer"
+                />
+              </form>
+              <form action="php/exporter_delete.php" method="post">
+                <div class="form-group">
+                  <label for="delete_exporter">Exporter ID</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="delete_exporter"
+                    placeholder="Enter Valid Exporter ID to Delete"
+                    name="delete_exporter"
+                    required
+                  />
+                </div>
+                <input
+                  type="submit"
+                  class="btn btn-primary submit_button bg_red"
+                  value="Delete Exporter"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -----Importer Exporter Delete Section close------------- -->
+    <?php
+      $con = new mysqli("localhost","root","","import_export");
+      $myfile = fopen("php/admin_email.txt", "r") or die("Unable to open file!");
+      $admin_email = fgets($myfile);
+
+      $query = "SELECT * FROM warehouse_fee ";
+
+      $ex_quary = "SELECT * FROM exported_country";
+      $im_quary = "SELECT * FROM imported_country";
+      $approve_clerecen_query = "SELECT * FROM apply_for_clearence ORDER BY user_id ASC";
+      $approve_clerecen_data = mysqli_query($con,$approve_clerecen_query);
+      $data = mysqli_query($con,$query);
+
+      $ex_data = mysqli_query($con,$ex_quary);
+      $im_data = mysqli_query($con,$im_quary);
+      $all_importer_query = "SELECT * FROM importer ORDER BY importer_id ASC";
+      $all_importer_data = mysqli_query($con,$all_importer_query);
+      $all_exporter_query = "SELECT * FROM exporter ORDER BY exporter_id ASC";
+      $all_exporter_data = mysqli_query($con,$all_exporter_query);
+
+      $admin_details_query = "SELECT * FROM `admin` WHERE email = '$admin_email'";
+      $admin_details_data = mysqli_query($con,$admin_details_query);
+      $admin_details_row = mysqli_fetch_array($admin_details_data);
+
+      $delete_exported_product_query = "SELECT * FROM `ex_warehouse` ORDER BY exporter_id ASC";
+      $delete_exported_product_data = mysqli_query($con,$delete_exported_product_query);
+
+    ?>
+
+    <!-- -----All Users Section Start------------- -->
+    <div id="all_i_e" class="tabcontent">
+      <div class="container">
+        <div class="row col-md-6 col-md-offset-3">
+          <div class="panel panel-primary">
+            <div class="panel-body">
+              <table id="customers">
+                <tr>
+                  <th>Importer ID</th>
+                  <th>Company Name</th>
+                  <th>Trade License</th>
+                  <th>Phone Number</th>
+                  <th>Email</th>
+                </tr>
+                <?php
+                  while($all_importer_row = mysqli_fetch_array($all_importer_data)){ ?>
+                <tr>
+                  <td><?php echo $all_importer_row['importer_id']; ?></td>
+                  <td><?php echo $all_importer_row['company_name']; ?></td>
+                  <td><?php echo $all_importer_row['trade_license']; ?></td>
+                  <td><?php echo $all_importer_row['phone']; ?></td>
+                  <td><?php echo $all_importer_row['email']; ?></td>
+
+                </tr>
+        
+                <?php } ?>
+              </table>
+              <table id="customers" style="margin-top: -50px;">
+                <tr>
+                  <th>Exporter ID</th>
+                  <th>Company Name</th>
+                  <th>Trade License</th>
+                  <th>Phone Number</th>
+                  <th>Email</th>
+                </tr>
+                <?php
+                  while($all_exporter_row = mysqli_fetch_array($all_exporter_data)){ ?>
+                <tr>
+                  <td><?php echo $all_exporter_row['exporter_id']; ?></td>
+                  <td><?php echo $all_exporter_row['company_name']; ?></td>
+                  <td><?php echo $all_exporter_row['trade_license']; ?></td>
+                  <td><?php echo $all_exporter_row['phone']; ?></td>
+                  <td><?php echo $all_exporter_row['email']; ?></td>
+
+                </tr>
+        
+                <?php } ?>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- -----All Users Section Close----------------------------------------------------------- -->
+
+
+
+    <!-- -----Check Warehousin fee Section Start--------------------------------------------------- -->
+    <div id="warehousing_Fee" class="tabcontent">
+      <table id="customers">
+        <tr>
+          <th>Product Type</th>
+          <th>Percentage</th>
+        </tr>
+        <?php
+          while($row = mysqli_fetch_array($data)){ ?>
+        <tr>
+          <td><?php echo $row['product_type']; ?></td>
+          <td><?php echo $row['percentage']; ?></td>
+        </tr>
+
+        <?php } ?>
+      </table>
+    </div>
+    <!-- -----Check Warehousin fee Section Close------------- -->
+
+    <!-- -----Approve Clerence section Start-------------------------------------------- -->
+    <div id="approve_clerence" class="tabcontent">
+      <table id="customers">
+        <tr>
+          <th>Name of Vessel</th>
+          <th>Date of Arrival</th>
+          <th>User ID</th>
+          <th>Trade License</th>
+          <th>Product Type</th>
+          <th>Product ID</th>
+          <th>Imported Country</th>
+          <th>Total Tax(TK)</th>
+          <th>Status</th>
+        </tr>
+        <?php
+          while($approve_clerecen_row= mysqli_fetch_array($approve_clerecen_data)){ ?>
+        <tr>
+          <td><?php echo $approve_clerecen_row['name_of_vessel']; ?></td>
+          <td><?php echo $approve_clerecen_row['date']; ?></td>
+          <td><?php echo $approve_clerecen_row['user_id']; ?></td>
+          <td><?php echo $approve_clerecen_row['trade_license']; ?></td>
+          <td><?php echo $approve_clerecen_row['product_type']; ?></td>
+          <td><?php echo $approve_clerecen_row['i_e_product_id']; ?></td>
+          <td><?php echo $approve_clerecen_row['i_e_country']; ?></td>
+          <td><?php echo $approve_clerecen_row['total_tax_amount']; ?></td>
+          <td>
+            <?php echo "
+            <a href='php/approve.php?approval_id=$approve_clerecen_row[user_id]'>Approve</a>"
+            ?>
+          </td>
+        </tr>
+
+        <?php } ?>
+      </table>
+    </div>
+    <!-- -----Approve Clerence Section Close------------- -->
+
+    <!-- -----Add Warehouse product Section Start------------- -->
+      <div id="add_ware_house_product" class="tabcontent">
+        <div class="container margin_bottom">
+          <div class="row col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <form action="php/add_warehouse_product.php" method="post">
+                  <div class="form-group">
+                    <label for="importer_id">Importer ID</label>
+                    <input
+                      type="text"
+                      class="form-control bg_gls"
+                      id="importer_id"
+                      placeholder="Enter Valid Imported ID"
+                      name="importer_id"
+                      required
+                      
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="im_product_id">Imported Product ID</label>
+                    <input
+                      type="text"
+                      class="form-control bg_gls"
+                      id="im_product_id"
+                      placeholder="Exp: im_805"
+                      name="im_product_id"
+                      required
+                    />  
+                  </div>  
+                  <div class="form-group">
+                    <label for="product_weight">Product Weight(KG)</label>
+                    <input
+                      type="text"
+                      class="form-control bg_gls"
+                      id="product_weight"
+                      placeholder="Exp: 1000kg"
+                      name="product_weight"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="product_type">Product Type</label>
+                    <input
+                      type="text"
+                      class="form-control bg_gls"
+                      id="product_type"
+                      name="product_type"
+                      placeholder="Exp: Electronics"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="i_e_country">Imported Country</label>
+                    <input
+                      type="text"
+                      class="form-control bg_gls"
+                      id="i_e_country"
+                      placeholder="Exp: Japan"
+                      name="i_e_country"
+                      required
+                    />
+                  </div>
+  
+                  <input type="submit" class="btn btn-primary submit_button" value="Add Product" />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- -----Add Warehouse product Section Close------------- -->
+
+    <!-- ------Delete Exported product section Start------------------------------- -->
+    <div id="delete_exported_product" class="tabcontent">
+      <table id="customers">
+        <tr>
+          <th>Exporter ID</th>
+          <th>Exported Product ID</th>
+          <th>Product Weight</th>
+          <th>product Type</th>
+          <th>Exported Country</th>
+          <th>Status</th>
+        </tr>
+        <?php
+          while($delete_exported_product_row= mysqli_fetch_array($delete_exported_product_data)){ ?>
+        <tr>
+          <td><?php echo $delete_exported_product_row['exporter_id']; ?></td>
+          <td><?php echo $delete_exported_product_row['ex_product_id']; ?></td>
+          <td><?php echo $delete_exported_product_row['product_weight']; ?></td>
+          <td><?php echo $delete_exported_product_row['product_type']; ?></td>
+          <td><?php echo $delete_exported_product_row['country']; ?></td>
+          <td>
+            <?php echo "
+            <a href='php/delete_exported_product.php?delete_id=$delete_exported_product_row[exporter_id]'>Delete</a>"
+            ?>
+          </td>
+        </tr>
+
+        <?php } ?>
+      </table>
+    </div>
+    <!-- ------Delete Exported product section Close------------------------------- -->
+
+    <!-- ------Check Imported & Exported Country's section Start------------------------------- -->
+    <div id="country" class="tabcontent">
+      <table id="customers">
+        <tr>
+          <th>Imported Country's</th>
+          <th>Product Type</th>
+        </tr>
+        <?php
+          while($im_row = mysqli_fetch_array($im_data)){ ?>
+
+        <tr>
+          <td><?php echo $im_row['country']; ?></td>
+          <td><?php echo $im_row['product_type']; ?></td>
+        </tr>
+
+        <?php } ?>
+      </table>
+      <table id="customers">
+        <tr>
+          <th>Exported Country's</th>
+          <th>Product Type</th>
+        </tr>
+        <?php
+          while($ex_row = mysqli_fetch_array($ex_data) ){ ?>
+
+        <tr>
+          <td><?php echo $ex_row['ex_country']; ?></td>
+          <td><?php echo $ex_row['ex_product_type']; ?></td>
+        </tr>
+
+        <?php } ?>
+      </table>
+    </div>
+    <!-- ------Check Imported & Exported Country's  section Close------------------------------------ -->
+
+
+    <!-- Admin my account section Start--------------------------------------------------------------- -->
+    <div id="my_account" class="tabcontent">
+      <table id="customers">
+        <div class="admin_my_account">
+          
+          <div class="admin_details">
+            <h2>Name: <span><?php echo $admin_details_row['name']; ?></span> </h2>
+            <h2>Email: <span><?php echo $admin_details_row['email']; ?></span>  </h2>
+            <h2>Password: <span><?php echo $admin_details_row['password']; ?></span> </h2>
+            <h2>Phone: <span><?php echo $admin_details_row['phone']; ?></span> </h2>
+            <div class="admin_logout">
+              <button onclick="myFunction()">Edit Profile</button>
+              <form action="php/admin_logout.php">
+                <button type="submit" id="admin_logout_button">LogOut</button>
+              </form>
+              
+              </div>
+          </div>
+            
+          <div class="admin_update_profile">
+            <div id="myDIV">
+              <div class="update_button_wraper">
+                <div class="form-group">
+                  <form action="php/profile_update.php" method="post">
+                  <label for="update_name">Name</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="update_name"
+                    name="update_name"
+                    placeholder="Enter your Name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="update_password">Password</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="update_password"
+                    placeholder="Type New Paassword"
+                    name="update_password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="update_phone">Phone Number</label>
+                  <input
+                    type="text"
+                    class="form-control bg_gls"
+                    id="update_phone"
+                    placeholder="New Phone Number"
+                    name="update_phone"
+                    required
+                  />
+                  <button type="submit" id="update_button">
+                    Update
+                  </button>
+                </div>
+              </form>
+              </div>
+            </div>
+            <script>
+            function myFunction() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "block") {
+              x.style.display = "none";
+            } else {
+              x.style.display = "block";
+            }
+            }
+            </script>
+          </div>          
+        </div>
+
+    </div>
+
+    <script>
+      function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+    </script>
+  </body>
+</html>
