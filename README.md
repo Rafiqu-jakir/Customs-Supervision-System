@@ -1,4 +1,4 @@
-# Customs-Supervision-System
+# Customs Supervision System
 
 Customs-Supervision-System is a web application developed for the Customs office to manage all port shipping systems. The application is built using HTML, CSS, Bootstrap, JavaScript, jQuery for the frontend, and raw PHP for the backend. This guide will help you set up and run the project on your computer.
 ## Prerequisites
